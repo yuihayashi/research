@@ -29,8 +29,6 @@ vector<vector<double>> generate_data() {
         data_vec[0][i] = x;
         data_vec[1][i] = y;
     }
-    // data_vec[0] = x_vec;
-    // data_vec[1] = y_vec;
     return data_vec;
 }
 
@@ -109,11 +107,9 @@ vector<vector<vector<vector<double>>>> exchange_replica(vector<vector<vector<vec
                                                         vector<double> x_data, vector<double> y_data, \
                                                         vector<double> beta_vec, int replica_size, int K, vector<double> &exchange_count) {
     for (int l=0; l<replica_size-1; ++l) {
-        // uniform_int_distribution<int> distr1(0, replica_size-1);
         vector<vector<double>> theta1(3, vector<double>(K));
         vector<vector<double>> theta2(3, vector<double>(K));
-        // int index_exchange = distr1(eng);
-        // int index_exchange = l;
+
         int ex_idx1 = l;
         int ex_idx2 = l + 1;
 
@@ -158,7 +154,6 @@ vector<vector<double>> _propose_theta_for_params(vector<vector<double>> _params,
                                                  vector<double> x_data, vector<double> y_data, double beta, \
                                                  int target_rep_idx, int j, int k, int K, vector<vector<double>> &acceptance_count) {
     double base_params = _params[j][k];
-
     vector<vector<double>> proposed_params = _params;
 
     uniform_real_distribution<double> distr1(-1., 1.);
@@ -167,7 +162,6 @@ vector<vector<double>> _propose_theta_for_params(vector<vector<double>> _params,
     double _q = q_probability_distribution(proposed_params, x_data, y_data, k, beta, K);
     double q = q_probability_distribution(_params, x_data, y_data, k, beta, K);
     double q_ratio = _q / q;
-    // double q_ratio = q_probability_ratio(_params, proposed_params, x_data, y_data, k, beta, K);
     uniform_real_distribution<double> distr2(0., 1.);
 
     if (distr2(eng) < q_ratio) { 
